@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ir.vitrinbot.callerid">
+
+    <!-- مجوزهای اینترنت و دسترسی به وب‌سرویس -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- مجوزهای مانیتور کردن وضعیت تماس‌ها -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    
+    <!-- مجوز نمایش پنجره شناور روی بقیه برنامه‌ها (پاپ‌آپ کالرآیدی) -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="کالر آیدی فوق‌سریع"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CallerId">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- گیرنده وضعیت تماس (به محض زنگ خوردن اجرا می‌شود) -->
+        <receiver
+            android:name=".CallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- سرویس پس‌زمینه برای مدیریت پنجره شناور -->
+        <service
+            android:name=".CallerIdService"
+            android:enabled="true"
+            android:exported="false" />
+
+    </application>
+</manifest>
